@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Market Sense - Category</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 80% 15%,
+                    #9333ea,
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #24003d,
+                    #4c087a,
+                    #7016a8
+                );
+
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            min-height: 100vh;
+            padding: 50px 80px;
+        }
+
+        /* HEADER */
+
+        .header {
+            animation: slideDown 1s ease;
+        }
+
+        .welcome {
+            font-size: 17px;
+            color: #d8b4fe;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 45px;
+            font-weight: 800;
+            letter-spacing: 1px;
+
+            text-shadow:
+                4px 5px 12px rgba(20,0,40,0.4);
+        }
+
+        .subtitle {
+            margin-top: 10px;
+            color: #ddd6fe;
+            font-size: 16px;
+        }
+
+        /* CATEGORY AREA */
+
+        .category-section {
+            margin-top: 55px;
+        }
+
+        .section-title {
+            font-size: 25px;
+            margin-bottom: 25px;
+        }
+
+        .category-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 22px;
+
+            max-width: 1050px;
+        }
+
+        /* CATEGORY CARD */
+
+        .category-card {
+            height: 165px;
+
+            padding: 25px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(216,180,254,0.25),
+                    rgba(76,29,149,0.35)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.25);
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 20px 35px rgba(20,0,40,0.35),
+                inset 0 1px 2px rgba(255,255,255,0.25);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease,
+                background 0.35s ease;
+
+            animation: cardIn 0.8s ease backwards;
+        }
+
+        .category-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .category-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .category-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .category-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .category-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .category-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .category-card:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .category-card:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        .category-card:hover {
+            transform:
+                translateY(-10px)
+                perspective(600px)
+                rotateX(3deg);
+
+            box-shadow:
+                0 30px 50px rgba(20,0,40,0.5),
+                0 0 25px rgba(216,180,254,0.2);
+        }
+
+        .category-card.selected {
+            background:
+                linear-gradient(
+                    145deg,
+                    #a78bfa,
+                    #6d28d9
+                );
+
+            transform:
+                translateY(-8px)
+                scale(1.02);
+
+            box-shadow:
+                0 25px 45px rgba(20,0,40,0.5);
+        }
+
+        /* ICON */
+
+        .icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ede9fe,
+                    #a78bfa
+                );
+
+            color: #4c1d95;
+
+            font-size: 25px;
+
+            margin-bottom: 15px;
+
+            box-shadow:
+                6px 7px 15px rgba(30,0,60,0.35);
+        }
+
+        .category-card h3 {
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+
+        .category-card p {
+            font-size: 12px;
+            color: #ddd6fe;
+            line-height: 1.4;
+        }
+
+        /* CONTINUE BUTTON */
+
+        .bottom {
+            margin-top: 40px;
+
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .selected-text {
+            color: #ddd6fe;
+            font-size: 14px;
+        }
+
+        .continue-button {
+            padding: 14px 35px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #c4b5fd,
+                    #a78bfa
+                );
+
+            color: #2e0757;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 20px rgba(20,0,40,0.3);
+
+            transition: 0.3s ease;
+
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .continue-button.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .continue-button:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 15px 25px rgba(20,0,40,0.4);
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes slideDown {
+
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes cardIn {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(40px)
+                    scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 900px) {
+
+            .container {
+                padding: 35px 25px;
+            }
+
+            .category-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 550px) {
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 35px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <div class="welcome">
+                Product Analysis
+            </div>
+
+            <div class="title">
+                Select Product Category
+            </div>
+
+            <div class="subtitle">
+                Choose a category to customize the product analysis.
+            </div>
+
+        </div>
+
+
+        <!-- CATEGORIES -->
+
+        <div class="category-section">
+
+            <div class="section-title">
+                What type of product are you analyzing?
+            </div>
+
+
+            <div class="category-grid">
+
+
+                <!-- ELECTRONICS -->
+
+                <div
+                    class="category-card"
+                    onclick="selectCategory(this, 'Electronics')">
+
+                    <div class="icon">
+                        📱
+                    </div>
+
+                    <h3>
+                        Electronics
+                    </h3>
+
+                    <p>
+                        Smartphones, laptops, tablets,
+                        headphones and gadgets.
+                    </p>
+
+                </div>
+
+
+                <!-- FOOD -->
+
+                <div
+                    class="category-card"
+                    onclick="selectCategory(this, 'Food & Beverages')">
+
+                    <div class="icon">
+                        🥤
+                    </div>
+
+                    <h3>
+                        Food & Beverages
+                    </h3>
+
+                    <p>
+                        Snacks, drinks, packaged foods
+                        and beverages.
+                    </p>
+
+                </div>
+
+
+                <!-- PERSONAL CARE -->
+
+                <div
+                    class="category-card"
+                    onclick="selectCategory(this, 'Personal Care')">
+
+                    <div class="icon">
+                        🧴
+                    </div>
+
+                    <h3>
+                        Personal Care
+                    </h3>
+
+                    <p>
+                        Skincare, haircare, cosmetics
+                        and personal products.
+                    </p>
+
+                </div>
+
+
+                <!-- HOME APPLIANCES -->
+
+                <div
+                    class="category-card"
+                    onclick="selectCategory(this, 'Home Appliances')">
+
+                    <div class="icon">
+                        🏠
+                    </div>
+
+                    <h3>
+                        Home Appliances
+                    </h3>
+
+                    <p>
+                        Refrigerators, washing machines,
+                        TVs and other appliances.
+                    </p>
+
+                </div>
+
+
+                <!-- DAILY USE -->
+
+                <div
+                    class="category-card"
+                    onclick="selectCategory(this, 'Daily Use Products')">
+
+                    <div class="icon">
+                        🛒
+                    </div>
+
+                    <h3>
+                        Daily Use Products
+                    </h3>
+
+                    <p>
+                        Household and everyday consumer
+                        products.
+                    </p>
+
+                </div>
+
+
+                <!-- CLOTHING -->
+
+                <div
+                    class="category-card"
+                    onclick="selectCategory(this, 'Clothing & Fashion')">
+
+                    <div class="icon">
+                        👕
+                    </div>
+
+                    <h3>
+                        Clothing & Fashion
+                    </h3>
+
+                    <p>
+                        Clothes, footwear, accessories
+                        and fashion products.
+                    </p>
+
+                </div>
+
+
+                <!-- AUTOMOTIVE -->
+
+                <div
+                    class="category-card"
+                    onclick="selectCategory(this, 'Automotive')">
+
+                    <div class="icon">
+                        🚗
+                    </div>
+
+                    <h3>
+                        Automotive
+                    </h3>
+
+                    <p>
+                        Cars, bikes, accessories
+                        and automotive products.
+                    </p>
+
+                </div>
+
+
+                <!-- OTHER -->
+
+                <div
+                    class="category-card"
+                    onclick="selectCategory(this, 'Other')">
+
+                    <div class="icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        Other
+                    </h3>
+
+                    <p>
+                        Any product that does not
+                        fit the listed categories.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM -->
+
+            <div class="bottom">
+
+                <div class="selected-text" id="selectedText">
+                    No category selected
+                </div>
+
+                <button
+                    class="continue-button"
+                    id="continueButton"
+                    onclick="continueToProduct()">
+
+                    CONTINUE →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src = "category.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Market Sense - Product Details</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 85% 15%,
+                    #9333ea,
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #24003d,
+                    #4c087a,
+                    #7016a8
+                );
+
+            color: white;
+
+            overflow-y: auto;
+        }
+
+        .container {
+            min-height: 100vh;
+            padding: 45px 80px;
+        }
+
+        /* HEADER */
+
+        .header {
+            margin-bottom: 35px;
+
+            animation:
+                slideDown 0.9s ease;
+        }
+
+        .back {
+            display: inline-block;
+
+            color: #ddd6fe;
+
+            font-size: 14px;
+
+            text-decoration: none;
+
+            margin-bottom: 20px;
+
+            cursor: pointer;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        .welcome {
+            color: #d8b4fe;
+
+            font-size: 17px;
+
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 43px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-shadow:
+                4px 5px 12px rgba(20,0,40,0.4);
+        }
+
+        .subtitle {
+            color: #ddd6fe;
+
+            font-size: 15px;
+
+            margin-top: 10px;
+        }
+
+        .category-name {
+            color: #e9d5ff;
+
+            font-weight: bold;
+        }
+
+        /* MAIN */
+
+        .main {
+            display: flex;
+
+            gap: 35px;
+
+            align-items: flex-start;
+        }
+
+        /* FORM */
+
+        .form-box {
+            width: 65%;
+
+            padding: 35px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(196,181,253,0.25),
+                    rgba(76,29,149,0.35)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.25);
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 25px 50px rgba(20,0,40,0.45),
+                inset 0 1px 2px rgba(255,255,255,0.2);
+
+            animation:
+                boxIn 1s ease;
+        }
+
+        .form-title {
+            font-size: 23px;
+
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        .full {
+            grid-column: 1 / 3;
+        }
+
+        label {
+            font-size: 13px;
+
+            font-weight: bold;
+
+            color: #ede9fe;
+
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #a78bfa;
+
+            border-radius: 11px;
+
+            background:
+                rgba(245,243,255,0.92);
+
+            color: #351064;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 90px;
+
+            resize: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+
+            border-color: #7e22ce;
+
+            box-shadow:
+                0 0 12px rgba(216,180,254,0.35);
+        }
+
+        /* PRICE */
+
+        .price-row {
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .currency {
+            width: 40%;
+        }
+
+        .price {
+            width: 60%;
+        }
+
+        /* DYNAMIC FIELDS */
+
+        #dynamicFields {
+
+            margin-top: 25px;
+
+            padding-top: 25px;
+
+            border-top:
+                1px solid rgba(255,255,255,0.2);
+        }
+
+        .dynamic-title {
+
+            font-size: 17px;
+
+            margin-bottom: 18px;
+
+            color: #e9d5ff;
+        }
+
+        /* BUTTON */
+
+        .button-area {
+
+            margin-top: 30px;
+
+            display: flex;
+
+            justify-content: flex-end;
+        }
+
+        .start-button {
+
+            padding:
+                15px 35px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #c4b5fd,
+                    #a78bfa
+                );
+
+            color: #2e0757;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 25px rgba(20,0,40,0.35);
+
+            transition: 0.3s;
+        }
+
+        .start-button:hover {
+
+            transform:
+                translateY(-4px)
+                scale(1.02);
+
+            box-shadow:
+                0 18px 30px rgba(20,0,40,0.45);
+        }
+
+        /* RIGHT INFO CARD */
+
+        .info-box {
+
+            width: 35%;
+
+            min-height: 300px;
+
+            padding: 30px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(216,180,254,0.22),
+                    rgba(59,7,100,0.38)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.22);
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 25px 50px rgba(20,0,40,0.4);
+
+            animation:
+                infoIn 1.2s ease;
+        }
+
+        .info-icon {
+
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ede9fe,
+                    #a78bfa
+                );
+
+            font-size: 30px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                7px 8px 18px rgba(20,0,40,0.35);
+        }
+
+        .info-box h2 {
+
+            font-size: 22px;
+
+            margin-bottom: 12px;
+        }
+
+        .info-box p {
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            color: #ddd6fe;
+        }
+
+        .info-list {
+
+            margin-top: 20px;
+
+            list-style: none;
+        }
+
+        .info-list li {
+
+            padding: 9px 0;
+
+            font-size: 13px;
+
+            color: #eee5ff;
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes slideDown {
+
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes boxIn {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateX(-40px)
+                    scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateX(0)
+                    scale(1);
+            }
+
+        }
+
+        @keyframes infoIn {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateX(40px)
+                    scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateX(0)
+                    scale(1);
+            }
+
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 900px) {
+
+            .container {
+                padding: 35px 20px;
+            }
+
+            .main {
+                flex-direction: column;
+            }
+
+            .form-box,
+            .info-box {
+                width: 100%;
+            }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: 1;
+            }
+
+            .title {
+                font-size: 32px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <a
+            class="back"
+            href="ui.html">
+
+            ← Back
+
+        </a>
+
+        <div class="welcome">
+            Product Setup
+        </div>
+
+        <div class="title">
+            Enter Product Details
+        </div>
+
+        <div class="subtitle">
+
+            Category selected:
+            <span
+                class="category-name"
+                id="categoryName">
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+
+        <!-- FORM -->
+
+        <div class="form-box">
+
+            <div class="form-title">
+                Product Information
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <!-- PRODUCT NAME -->
+
+                <div class="input-group full">
+
+                    <label>
+                        Product Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productName"
+                        placeholder="Enter product name">
+
+                </div>
+
+
+                <!-- BRAND -->
+
+                <div class="input-group">
+
+                    <label>
+                        Brand
+                    </label>
+
+                    <input
+                        type="text"
+                        id="brand"
+                        placeholder="Enter brand name">
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="input-group">
+
+                    <label>
+                        Price
+                    </label>
+
+                    <div class="price-row">
+
+                        <select
+                            class="currency"
+                            id="currency">
+
+                            <option value="INR">
+                                ₹ INR
+                            </option>
+
+                            <option value="USD">
+                                $ USD
+                            </option>
+
+                            <option value="EUR">
+                                € EUR
+                            </option>
+
+                            <option value="GBP">
+                                £ GBP
+                            </option>
+
+                            <option value="JPY">
+                                ¥ JPY
+                            </option>
+
+                            <option value="AED">
+                                د.إ AED
+                            </option>
+
+                            <option value="AUD">
+                                $ AUD
+                            </option>
+
+                            <option value="CAD">
+                                $ CAD
+                            </option>
+
+                        </select>
+
+
+                        <input
+                            class="price"
+                            type="number"
+                            id="price"
+                            placeholder="Price">
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- DYNAMIC CATEGORY FIELDS -->
+
+            <div id="dynamicFields">
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div
+                class="input-group"
+                style="margin-top:25px;">
+
+                <label>
+                    Product Description
+                </label>
+
+                <textarea
+                    id="description"
+                    placeholder="Briefly describe the product...">
+                </textarea>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <div class="button-area">
+
+                <button
+                    class="start-button"
+                    onclick="startAnalysis()">
+
+                    START ANALYSIS →
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- INFO -->
+
+        <div class="info-box">
+
+            <div class="info-icon"
+                 id="categoryIcon">
+                ✦
+            </div>
+
+            <h2 id="infoTitle">
+                Product Analysis
+            </h2>
+
+            <p id="infoDescription">
+                Enter the important details about your
+                product. Market Sense will use these
+                details to understand which customer
+                attributes should be analyzed.
+            </p>
+
+            <ul
+                class="info-list"
+                id="infoList">
+            </ul>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<script src = "product_details.js"></script>
+
+</body>
+</html>

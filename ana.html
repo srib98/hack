@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Market Sense - AI Analysis</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 85% 15%,
+                    #9333ea,
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #24003d,
+                    #4c087a,
+                    #7016a8
+                );
+
+            color: white;
+        }
+
+        .container {
+            min-height: 100vh;
+            padding: 45px 80px;
+        }
+
+        /* HEADER */
+
+        .back {
+            display: inline-block;
+
+            color: #ddd6fe;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        .welcome {
+            color: #d8b4fe;
+
+            font-size: 17px;
+
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 43px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-shadow:
+                4px 5px 12px rgba(20,0,40,0.4);
+        }
+
+        .subtitle {
+            color: #ddd6fe;
+
+            font-size: 15px;
+
+            margin-top: 10px;
+
+            line-height: 1.6;
+        }
+
+        /* PRODUCT */
+
+        .product-card {
+
+            margin-top: 30px;
+
+            padding: 22px 28px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(216,180,254,0.22),
+                    rgba(59,7,100,0.35)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.2);
+
+            backdrop-filter: blur(15px);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 20px 40px rgba(20,0,40,0.35);
+        }
+
+        .product-name {
+            font-size: 21px;
+
+            font-weight: bold;
+        }
+
+        .product-brand {
+
+            color: #ddd6fe;
+
+            font-size: 13px;
+
+            margin-top: 6px;
+        }
+
+        .category {
+
+            padding: 9px 16px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(196,181,253,0.25);
+
+            color: #ede9fe;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        /* MAIN */
+
+        .main {
+
+            display: flex;
+
+            gap: 30px;
+
+            margin-top: 30px;
+        }
+
+        /* PROCESS CARD */
+
+        .process-box {
+
+            width: 65%;
+
+            padding: 32px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(196,181,253,0.25),
+                    rgba(76,29,149,0.35)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.25);
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 25px 50px rgba(20,0,40,0.45);
+
+            animation:
+                boxIn 0.9s ease;
+        }
+
+        .process-title {
+
+            font-size: 21px;
+
+            margin-bottom: 25px;
+        }
+
+        /* STEPS */
+
+        .step {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 15px;
+
+            margin-bottom: 12px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+
+            transition: 0.3s;
+        }
+
+        .step.active {
+
+            background:
+                rgba(216,180,254,0.16);
+
+            transform:
+                translateX(5px);
+
+        }
+
+        .step.completed {
+
+            background:
+                rgba(196,181,253,0.10);
+        }
+
+        .step-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(196,181,253,0.18);
+
+            font-size: 18px;
+        }
+
+        .step-text {
+
+            flex: 1;
+        }
+
+        .step-text h3 {
+
+            font-size: 14px;
+
+            margin-bottom: 4px;
+        }
+
+        .step-text p {
+
+            font-size: 12px;
+
+            color: #cfc2e8;
+        }
+
+        .step-status {
+
+            font-size: 12px;
+
+            color: #ddd6fe;
+        }
+
+        /* PROGRESS */
+
+        .progress-section {
+
+            margin-top: 25px;
+        }
+
+        .progress-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 13px;
+
+            margin-bottom: 9px;
+        }
+
+        .progress-bar {
+
+            height: 11px;
+
+            width: 100%;
+
+            background:
+                rgba(255,255,255,0.1);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .progress {
+
+            height: 100%;
+
+            width: 0%;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #c4b5fd,
+                    #a78bfa
+                );
+
+            transition:
+                width 0.5s ease;
+        }
+
+        /* RIGHT */
+
+        .insight-box {
+
+            width: 35%;
+
+            padding: 30px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(216,180,254,0.22),
+                    rgba(59,7,100,0.38)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.22);
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 25px 50px rgba(20,0,40,0.4);
+
+            animation:
+                infoIn 1.1s ease;
+        }
+
+        .ai-icon {
+
+            width: 65px;
+
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ede9fe,
+                    #a78bfa
+                );
+
+            color: #351064;
+
+            font-size: 28px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                7px 8px 18px rgba(20,0,40,0.35);
+        }
+
+        .insight-box h2 {
+
+            font-size: 21px;
+
+            margin-bottom: 12px;
+        }
+
+        .insight-box p {
+
+            color: #ddd6fe;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+        .feature-preview {
+
+            margin-top: 22px;
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.07);
+        }
+
+        .feature-preview h3 {
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+        .feature {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 12px;
+
+            padding: 9px 0;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .feature:last-child {
+            border-bottom: none;
+        }
+
+        /* BUTTON */
+
+        .button-area {
+
+            margin-top: 30px;
+
+            display: flex;
+
+            justify-content: flex-end;
+        }
+
+        .dashboard-button {
+
+            padding:
+                15px 32px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #c4b5fd,
+                    #a78bfa
+                );
+
+            color: #2e0757;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: 0.3s;
+        }
+
+        .dashboard-button.active {
+
+            opacity: 1;
+
+            pointer-events: auto;
+        }
+
+        .dashboard-button:hover {
+
+            transform:
+                translateY(-4px)
+                scale(1.02);
+
+            box-shadow:
+                0 15px 30px rgba(20,0,40,0.4);
+        }
+
+        /* ANIMATION */
+
+        @keyframes boxIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateX(-40px)
+                    scale(0.96);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateX(0)
+                    scale(1);
+
+            }
+
+        }
+
+        @keyframes infoIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateX(40px)
+                    scale(0.96);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateX(0)
+                    scale(1);
+
+            }
+
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 900px) {
+
+            .container {
+                padding: 35px 20px;
+            }
+
+            .main {
+                flex-direction: column;
+            }
+
+            .process-box,
+            .insight-box {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- BACK -->
+
+    <a
+        href="review-data.html"
+        class="back">
+
+        ← Back to Data Collection
+
+    </a>
+
+
+    <!-- HEADER -->
+
+    <div class="welcome">
+        AI-Powered Product Intelligence
+    </div>
+
+    <div class="title">
+        Customer Feedback Analysis
+    </div>
+
+    <div class="subtitle">
+
+        Market Sense is transforming collected customer
+        feedback into product-level market intelligence.
+
+    </div>
+
+
+    <!-- PRODUCT -->
+
+    <div class="product-card">
+
+        <div>
+
+            <div
+                class="product-name"
+                id="productName">
+
+                Product
+
+            </div>
+
+            <div
+                class="product-brand"
+                id="brand">
+
+                Brand
+
+            </div>
+
+        </div>
+
+        <div
+            class="category"
+            id="category">
+
+            Category
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+
+        <!-- PROCESS -->
+
+        <div class="process-box">
+
+            <div class="process-title">
+                Analysis Pipeline
+            </div>
+
+
+            <!-- STEP 1 -->
+
+            <div
+                class="step"
+                id="step1">
+
+                <div class="step-icon">
+                    🧹
+                </div>
+
+                <div class="step-text">
+
+                    <h3>
+                        Data Cleaning
+                    </h3>
+
+                    <p>
+                        Removing duplicate and irrelevant feedback
+                    </p>
+
+                </div>
+
+                <div
+                    class="step-status"
+                    id="status1">
+
+                    Waiting
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 2 -->
+
+            <div
+                class="step"
+                id="step2">
+
+                <div class="step-icon">
+                    🔍
+                </div>
+
+                <div class="step-text">
+
+                    <h3>
+                        Feature Extraction
+                    </h3>
+
+                    <p>
+                        Identifying product attributes mentioned by customers
+                    </p>
+
+                </div>
+
+                <div
+                    class="step-status"
+                    id="status2">
+
+                    Waiting
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 3 -->
+
+            <div
+                class="step"
+                id="step3">
+
+                <div class="step-icon">
+                    🧠
+                </div>
+
+                <div class="step-text">
+
+                    <h3>
+                        Customer Reaction Analysis
+                    </h3>
+
+                    <p>
+                        Understanding positive and negative customer responses
+                    </p>
+
+                </div>
+
+                <div
+                    class="step-status"
+                    id="status3">
+
+                    Waiting
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 4 -->
+
+            <div
+                class="step"
+                id="step4">
+
+                <div class="step-icon">
+                    📊
+                </div>
+
+                <div class="step-text">
+
+                    <h3>
+                        Product Sensitivity
+                    </h3>
+
+                    <p>
+                        Measuring customer attention toward product attributes
+                    </p>
+
+                </div>
+
+                <div
+                    class="step-status"
+                    id="status4">
+
+                    Waiting
+
+                </div>
+
+            </div>
+
+
+            <!-- PROGRESS -->
+
+            <div class="progress-section">
+
+                <div class="progress-header">
+
+                    <span>
+                        Analysis Progress
+                    </span>
+
+                    <span id="progressText">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress"
+                        id="progress">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <div class="button-area">
+
+                <button
+                    class="dashboard-button"
+                    id="dashboardButton"
+                    onclick="openDashboard()">
+
+                    VIEW MARKET INSIGHTS →
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- INSIGHT -->
+
+        <div class="insight-box">
+
+
+            <div class="ai-icon">
+                ✦
+            </div>
+
+
+            <h2>
+                What Market Sense Finds
+            </h2>
+
+
+            <p>
+
+                The system identifies which product
+                attributes customers talk about most,
+                how they react to those attributes,
+                and which areas may have the greatest
+                impact on product perception.
+
+            </p>
+
+
+            <div class="feature-preview">
+
+                <h3>
+                    Example Attributes
+                </h3>
+
+                <div class="feature">
+
+                    <span>
+                        Price
+                    </span>
+
+                    <span>
+                        Analysing...
+                    </span>
+
+                </div>
+
+                <div class="feature">
+
+                    <span>
+                        Quality
+                    </span>
+
+                    <span>
+                        Analysing...
+                    </span>
+
+                </div>
+
+                <div class="feature">
+
+                    <span>
+                        Features
+                    </span>
+
+                    <span>
+                        Analysing...
+                    </span>
+
+                </div>
+
+                <div class="feature">
+
+                    <span>
+                        Performance
+                    </span>
+
+                    <span>
+                        Analysing...
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<script src = "analysis_backend.js"></script>
+
+</body>
+</html>

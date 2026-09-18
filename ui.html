@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Market Sense</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 80% 20%, #9333ea 0%, transparent 30%),
+                linear-gradient(135deg, #24003d, #4c087a, #7016a8);
+            overflow: hidden;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 45px 80px;
+        }
+
+        /* LEFT SIDE */
+
+        .left {
+            width: 48%;
+            color: white;
+            animation: leftIn 1.2s ease;
+        }
+
+        .welcome {
+            font-size: 21px;
+            color: #d8b4fe;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .title {
+            font-size: 78px;
+            line-height: 0.95;
+            font-weight: 800;
+            letter-spacing: -3px;
+            margin-bottom: 30px;
+
+            text-shadow:
+                5px 5px 0px rgba(30, 0, 50, 0.25),
+                10px 12px 25px rgba(20, 0, 40, 0.35);
+        }
+
+        .title span {
+            color: #d8b4fe;
+        }
+
+        .description {
+            width: 520px;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #eee5ff;
+        }
+
+        /* RIGHT SIDE */
+
+        .right {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: rightIn 1.2s ease;
+        }
+
+        /* 3D VISUAL AREA */
+
+        .visual-area {
+            width: 510px;
+            height: 230px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .visual-card {
+            position: absolute;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(216, 180, 254, 0.28),
+                    rgba(76, 29, 149, 0.35)
+                );
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 25px 45px rgba(20,0,40,0.45),
+                inset 0 1px 1px rgba(255,255,255,0.25);
+
+            color: white;
+        }
+
+        /* PRODUCT CARD */
+
+        .product-card {
+            width: 230px;
+            height: 145px;
+
+            left: 10px;
+            top: 35px;
+
+            padding: 20px;
+
+            transform:
+                perspective(700px)
+                rotateY(8deg);
+
+            animation:
+                floatOne 4s infinite ease-in-out;
+        }
+
+        .product-circle {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #e9d5ff,
+                    #a855f7
+                );
+
+            box-shadow:
+                8px 8px 15px rgba(45,0,80,0.4);
+
+            margin-bottom: 12px;
+        }
+
+        .product-card h3 {
+            font-size: 15px;
+        }
+
+        .product-card p {
+            font-size: 11px;
+            color: #ddd6fe;
+            margin-top: 5px;
+        }
+
+        /* CHART CARD */
+
+        .chart-card {
+            width: 240px;
+            height: 155px;
+
+            right: 5px;
+            top: 0;
+
+            padding: 18px;
+
+            transform:
+                perspective(700px)
+                rotateY(-8deg);
+
+            animation:
+                floatTwo 4s infinite ease-in-out;
+        }
+
+        .chart-title {
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .bars {
+            height: 90px;
+
+            display: flex;
+            align-items: end;
+
+            gap: 13px;
+        }
+
+        .bar {
+            width: 25px;
+
+            background:
+                linear-gradient(
+                    to top,
+                    #a78bfa,
+                    #f5f3ff
+                );
+
+            border-radius:
+                7px 7px 2px 2px;
+
+            box-shadow:
+                4px 4px 8px rgba(50,0,80,0.3);
+
+            animation:
+                barGrow 1.5s ease;
+        }
+
+        .bar1 {
+            height: 35px;
+        }
+
+        .bar2 {
+            height: 65px;
+        }
+
+        .bar3 {
+            height: 48px;
+        }
+
+        .bar4 {
+            height: 80px;
+        }
+
+        .bar5 {
+            height: 58px;
+        }
+
+        /* DECORATIVE CIRCLES */
+
+        .dot {
+            position: absolute;
+            border-radius: 50%;
+
+            background:
+                rgba(216,180,254,0.15);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .dot1 {
+            width: 90px;
+            height: 90px;
+
+            top: -50px;
+            right: 60px;
+
+            animation:
+                moveDot 5s infinite alternate;
+        }
+
+        .dot2 {
+            width: 55px;
+            height: 55px;
+
+            bottom: 0;
+            left: 120px;
+
+            animation:
+                moveDot 4s infinite alternate-reverse;
+        }
+
+        /* LOGIN BOX */
+
+        .login-box {
+            width: 410px;
+
+            padding: 38px;
+
+            border-radius: 26px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #c4b5fd,
+                    #a78bfa,
+                    #8b5cf6
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.35);
+
+            box-shadow:
+                0 30px 60px rgba(20,0,40,0.55),
+                0 12px 25px rgba(20,0,40,0.3),
+                inset 0 1px 2px rgba(255,255,255,0.45);
+
+            transform:
+                perspective(1000px)
+                rotateX(2deg);
+
+            animation:
+                loginIn 1.5s ease;
+        }
+
+        .login-box h2 {
+            color: #2e0757;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+        .login-box .sub {
+            color: #4c1d70;
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+        /* INPUTS */
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+
+            font-size: 13px;
+
+            color: #351064;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+        .input-group input {
+            width: 100%;
+
+            padding: 14px;
+
+            border:
+                1px solid rgba(76,29,149,0.35);
+
+            border-radius: 11px;
+
+            background:
+                rgba(245,243,255,0.55);
+
+            outline: none;
+
+            color: #2e0757;
+
+            font-size: 14px;
+
+            box-shadow:
+                inset 0 2px 6px rgba(60,0,100,0.12);
+        }
+
+        .input-group input::placeholder {
+            color: #72558f;
+        }
+
+        .input-group input:focus {
+            border-color: #5b21b6;
+
+            box-shadow:
+                0 0 12px rgba(91,33,182,0.35);
+        }
+
+        /* LOGIN BUTTON */
+
+        .login-button {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #3b0764,
+                    #581c87,
+                    #6d28d9
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 20px rgba(59,7,100,0.35);
+
+            transition:
+                0.3s ease;
+        }
+
+        .login-button:hover {
+            transform:
+                translateY(-4px)
+                scale(1.01);
+
+            box-shadow:
+                0 15px 28px rgba(59,7,100,0.45);
+        }
+
+        .login-button:active {
+            transform:
+                translateY(1px);
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes leftIn {
+
+            from {
+                opacity: 0;
+                transform: translateX(-80px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+        }
+
+        @keyframes rightIn {
+
+            from {
+                opacity: 0;
+                transform: translateX(80px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+        }
+
+        @keyframes loginIn {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    perspective(1000px)
+                    rotateX(10deg)
+                    translateY(50px)
+                    scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    perspective(1000px)
+                    rotateX(2deg)
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+        @keyframes floatOne {
+
+            0%, 100% {
+                transform:
+                    perspective(700px)
+                    rotateY(8deg)
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    perspective(700px)
+                    rotateY(8deg)
+                    translateY(-12px);
+            }
+
+        }
+
+        @keyframes floatTwo {
+
+            0%, 100% {
+                transform:
+                    perspective(700px)
+                    rotateY(-8deg)
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    perspective(700px)
+                    rotateY(-8deg)
+                    translateY(12px);
+            }
+
+        }
+
+        @keyframes barGrow {
+
+            from {
+                height: 0;
+            }
+
+        }
+
+        @keyframes moveDot {
+
+            from {
+                transform: translate(0,0);
+            }
+
+            to {
+                transform: translate(25px,15px);
+            }
+
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 900px) {
+
+            body {
+                overflow-y: auto;
+            }
+
+            .page {
+                flex-direction: column;
+
+                padding:
+                    40px 20px;
+            }
+
+            .left,
+            .right {
+                width: 100%;
+            }
+
+            .left {
+                text-align: center;
+
+                margin-bottom: 45px;
+            }
+
+            .title {
+                font-size: 55px;
+            }
+
+            .description {
+                width: 100%;
+            }
+
+            .visual-area {
+                width: 100%;
+                max-width: 510px;
+            }
+
+            .login-box {
+                width: 100%;
+                max-width: 410px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="page">
+
+        <!-- LEFT SIDE -->
+
+        <div class="left">
+
+            <div class="welcome">
+                Welcome to
+            </div>
+
+            <div class="title">
+                Market<br>
+                <span>Sense</span>
+            </div>
+
+            <p class="description">
+
+                Turn customer opinions and market data
+                into meaningful product insights and
+                smarter marketing decisions.
+
+            </p>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="right">
+
+            <!-- 3D VISUALS -->
+
+            <div class="visual-area">
+
+                <div class="dot dot1"></div>
+
+                <div class="dot dot2"></div>
+
+
+                <!-- PRODUCT INSIGHT CARD -->
+
+                <div class="visual-card product-card">
+
+                    <div class="product-circle"></div>
+
+                    <h3>
+                        Product Insights
+                    </h3>
+
+                    <p>
+                        Understand what customers value
+                    </p>
+
+                </div>
+
+
+                <!-- BAR CHART CARD -->
+
+                <div class="visual-card chart-card">
+
+                    <div class="chart-title">
+                        Customer Response
+                    </div>
+
+                    <div class="bars">
+
+                        <div class="bar bar1"></div>
+
+                        <div class="bar bar2"></div>
+
+                        <div class="bar bar3"></div>
+
+                        <div class="bar bar4"></div>
+
+                        <div class="bar bar5"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOGIN -->
+
+            <div class="login-box">
+
+                <h2>
+                    Login
+                </h2>
+
+                <p class="sub">
+                    Access your market intelligence dashboard
+                </p>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        placeholder="Enter your email">
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        placeholder="Enter your password">
+
+                </div>
+
+
+                <button
+                    class="login-button">
+
+                    LOGIN
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script src = "login.js"></script>
+</body>
+</html>
